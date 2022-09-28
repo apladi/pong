@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SDL2/SDL.h>
+#define FPS_CAP  60
 #define WINDOW_W 500
 #define WINDOW_H 500
 
@@ -29,8 +30,8 @@ int main(void) {
     SDL_Event     event;
     SDL_Window   *window   = SDL_CreateWindow("Pong", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_W, WINDOW_H, 0);
     SDL_Renderer *renderer = SDL_CreateRenderer(window, 0, 0);
-    float DirX[] = {-0.02, -0.02, 0.02,  0.02};
-    float DirY[] = {-0.02, 0.02,  0.02, -0.02};
+    float DirX[] = {-3, -3, 3,  3};
+    float DirY[] = {-3,  3, 3, -3};
     int direction = 0;
 
     /* playerOne stuff */
@@ -64,19 +65,19 @@ int main(void) {
         }
 
         if (keyboard[SDL_SCANCODE_UP]) {
-            playerTwo.y -= 0.05;
+            playerTwo.y -= 5;
         }
 
         if (keyboard[SDL_SCANCODE_DOWN]) {
-            playerTwo.y += 0.05;
+            playerTwo.y += 5;
         }
 
         if (keyboard[SDL_SCANCODE_W]) {
-            playerOne.y -= 0.05;
+            playerOne.y -= 5;
         }
 
         if (keyboard[SDL_SCANCODE_S]) {
-            playerOne.y += 0.05;
+            playerOne.y += 5;
         }
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -108,5 +109,6 @@ int main(void) {
         if (direction >= 4) direction = 0;
 
         SDL_RenderPresent(renderer);
+        SDL_Delay(1000 / FPS_CAP);
     }
 }
